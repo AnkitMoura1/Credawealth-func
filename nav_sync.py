@@ -1,7 +1,24 @@
+import os
 import requests
 import csv
 import datetime
-import json
+from appwrite.client import Client
+from appwrite.services.databases import Databases
+
+# --- Read env vars ---
+APPWRITE_ENDPOINT = os.environ.get("APPWRITE_ENDPOINT")
+APPWRITE_PROJECT_ID = os.environ.get("APPWRITE_PROJECT_ID")
+APPWRITE_API_KEY = os.environ.get("APPWRITE_API_KEY")
+APPWRITE_DB_ID = os.environ.get("APPWRITE_DB_ID")
+APPWRITE_COLLECTION_ID = os.environ.get("APPWRITE_COLLECTION_ID")
+
+# --- Setup Appwrite client ---
+client = Client()
+client.set_endpoint(APPWRITE_ENDPOINT)
+client.set_project(APPWRITE_PROJECT_ID)
+client.set_key(APPWRITE_API_KEY)
+
+db = Databases(client)
 
 # Get yesterday's date in required format
 today = datetime.date.today() - datetime.timedelta(days=1)
